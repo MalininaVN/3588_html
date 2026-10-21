@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Оценка напряжённо-деформированного состояния подземного магистрального трубопровода при случайном сейсмическом воздействии</title>
+    <meta name="description" content="Вероятностный подход к оценке наступления предельного напряжённо-деформированного состояния трубных секций подземных участков трубопровода при сейсмическом воздействии.">
+    <meta name="keywords" content="напряжённо-деформированное состояние, сейсмическое воздействие, магистральный трубопровод, подземный трубопровод, предельное состояние">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.7/dist/katex.min.css" integrity="sha384-JctiRyLzXCrSoOOzFlSoWLdyzQl7OrrRnhyeBmzB6ZWtcjccUyc8lCQJqIbs3uQX" crossorigin="anonymous">
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.18.7/dist/katex.min.js" integrity="sha384-+7Keh381hSkXmXqnjC0JBM/kzsN6TFj+wMKychSLjTvJ8/0ElMde2uKl8i6p6Buj" crossorigin="anonymous"></script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.18.7/dist/contrib/auto-render.min.js" integrity="sha384-bjyGPfbij8/NDKJhSGZNP/khQVgtHUE5exjm4Ydllo42FwIgYsdLO2lXGmRBf5Mz" crossorigin="anonymous"
+            onload="renderMathInElement(document.body);"></script>
+
+    <style>
+        :root { --accent: #c1553b; --line: #ddd; --muted: #666; }
+        body {
+            margin: 0 auto;
+            max-width: 820px;
+            padding: 24px 16px 64px;
+            font: 16px/1.5 "Cambria", serif;
+            color: #1b1b1b;
+            text-align: justify;
+            hyphens: auto;
+        }
+
+        /* ---------- ЗАГОЛОВКИ ---------- */
+        h1 {
+            font-size: 1.95em;
+            line-height: 1.25;
+            text-align: center;
+            margin: 2.5em 0 0.8em;
+            hyphens: none;
+        }
+        h2 {
+            font-size: 1.2em;
+            margin-top: 2em;
+            border-bottom: 1px solid var(--line);
+            padding-bottom: .3em;
+            text-align: left;
+        }
+        h3 {
+            font-size: 1.1em;
+            text-align: left;
+        }
+
+        /* ---------- ШАПКА (компактнее) ---------- */
+        header {
+            padding-bottom: 0;
+            margin-bottom: 0;
+            text-align: center;
+            line-height: 1.3;                /* уменьшен интервал */
+            font-size: 0.9em;                /* уменьшен базовый шрифт шапки */
+        }
+
+        .journal-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8em;                /* меньше */
+            color: #666;
+            margin-bottom: 0.2em;
+            font-family: inherit;
+        }
+        .journal-info .center-title {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .journal-title {
+            font-size: 1em;                  /* меньше */
+            font-weight: normal;
+            margin: 0 0 1em 0;
+            padding-top: 0.3em;
+            border-top: 1px solid var(--line);
+        }
+
+        .meta-grid {
+            display: flex;
+            justify-content: space-between;
+            text-align: left;
+            font-size: 0.82em;               /* меньше */
+            margin-bottom: 0;
+        }
+        .meta-left { width: 60%; }
+        .meta-right { width: 35%; text-align: right; white-space: nowrap; } /* DOI на одной строке */
+        .meta-label { font-weight: bold; }
+
+        /* Английский заголовок на подложке */
+        .subtitle-en {
+            display: block;
+            background: #faf7f5;
+            border-radius: 8px;
+            padding: 6px 12px;               /* компактнее */
+            margin: 0 auto 1.8em;            /* увеличен отступ снизу */
+            font-style: italic;
+            color: #333;
+            font-size: 0.95em;               /* меньше */
+            text-align: center;
+            max-width: 100%;
+        }
+
+        .meta, .authors, .affiliation {
+            font-size: 0.85em;               /* меньше */
+            color: #444;
+            text-align: center;
+        }
+        .affiliation { font-size: 0.82em; color: #555; }
+        .span-authors {
+            font-weight: bold;
+            font-size: 1.4em;                /* чуть меньше */
+            display: inline-block;
+            line-height: 1.2;
+            margin-bottom: .2em;
+            hyphens: none;
+        }
+
+        /* ---------- БЛОКИ НА ПОДЛОЖКЕ (компактнее) ---------- */
+        .abstract {
+            background: #faf7f5;
+            border-left: 3px solid var(--accent);
+            padding: 8px 14px;               /* уменьшены отступы */
+            margin-bottom: 10px;
+            text-align: justify;
+            font-size: 0.95em;               /* чуть меньше */
+            line-height: 1.4;                /* компактнее */
+        }
+        .abstract h2 {
+            border-bottom: none;
+            margin-top: .1em;
+            margin-bottom: .3em;
+            font-size: 1.1em;
+        }
+        .abstract h3 {
+            margin-top: .4em;
+            margin-bottom: .2em;
+            font-size: 1em;
+        }
+        .abstract p {
+            margin: .4em 0;
+        }
+
+        /* Увеличенный отступ перед первой аннотацией */
+        .abstract:first-of-type {
+            margin-top: 2.5em;
+        }
+
+        .keywords { font-size: .9em; }
+
+        /* ---------- ФОРМУЛЫ ---------- */
+        .formula {
+            display: block;
+            margin: 1em 0;
+            padding: .6em 1em;
+            overflow-x: auto;
+            font-family: "Cambria", serif;
+            text-align: center;
+        }
+
+        /* ---------- ТАБЛИЦА ---------- */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: .9em;
+        }
+        caption {
+            caption-side: top;
+            text-align: left;
+            font-weight: normal;
+            font-size: .82em;
+            color: #333;
+            padding-bottom: .5em;
+            max-width: 100%;
+            line-height: 1.4;
+        }
+        caption .caption-label { font-weight: bold; }
+
+        th, td {
+            border: 1px solid var(--line);
+            padding: 4px 8px;
+            text-align: center;
+        }
+        thead th { background: #f2f2f2; }
+        tbody tr:nth-child(even) { background: #fafafa; }
+
+        /* ---------- РИСУНОК ---------- */
+        figure { margin: 1.5em 0; }
+        figure img { max-width: 100%; height: auto; display: block; }
+        figcaption {
+            font-size: .82em;
+            color: #444;
+            line-height: 1.4;
+            max-width: 100%;
+            text-align: justify;
+            margin-top: .5em;
+        }
+
+        /* ---------- СПИСОК ЛИТЕРАТУРЫ ---------- */
+        .refs { font-size: .9em; }
+        .refs li { margin-bottom: .45em; }
+
+        .refs-dates {
+            border-top: 1px solid var(--line);
+            margin-top: 1.5em;
+            padding-top: .8em;
+            font-size: .82em;
+            font-style: italic;
+            color: var(--muted);
+            text-align: left;
+            line-height: 1.5;
+        }
+
+        /* ---------- СВЕДЕНИЯ ОБ АВТОРАХ ---------- */
+        .author-card {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            margin: 1.2em 0;
+            text-align: left;
+        }
+        .author-card img {
+            width: 110px;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+        .author-card .author-info { flex: 1; }
+        .author-card .author-name {
+            font-size: 1em;
+            margin: 0 0 .25em;
+            color: #1b1b1b;
+        }
+        .author-card .author-details {
+            font-size: .82em;
+            color: var(--muted);
+            line-height: 1.5;
+            margin: 0;
+            text-align: left;
+        }
+
+        .corresponding {
+            border-top: 1px solid var(--line);
+            margin-top: 1.5em;
+            padding-top: .8em;
+            font-size: .85em;
+            font-style: italic;
+            color: var(--muted);
+            text-align: left;
+            line-height: 1.5;
+        }
+
+        .note { font-size: .85em; color: var(--muted); }
+        .article { text-align: justify; }
+    </style>
+</head>
+<body>
+
+<!-- ================= ШАПКА СТАТЬИ ================= -->
+<header>
+    <div class="journal-info">
+        <span>2026 16(4):296–301</span>
+        <span class="center-title">ПРОЕКТИРОВАНИЕ, СТРОИТЕЛЬСТВО И ЭКСПЛУАТАЦИЯ</span>
+        <span>ISSN 2221-2701</span>
+    </div>
+
+    <div class="journal-title">
+        Наука и технологии трубопроводного транспорта нефти и нефтепродуктов
+    </div>
+
+    <div class="meta-grid">
+        <div class="meta-left">
+            <span class="meta-label">Научная специальность:</span><br>
+            2.8.5. Строительство и эксплуатация нефтегазопроводов, баз и хранилищ
+        </div>
+        <div class="meta-right">
+            УДК 622.692.4<br>
+            DOI: 10.28999/2541-9595-2026-16-4-296-301
+        </div>
+    </div>
+
+    <h1>Оценка напряжённо-деформированного состояния подземного магистрального
+        трубопровода при случайном сейсмическом воздействии</h1>
+
+    <p class="subtitle-en" lang="en">Assessment of the stress-strain state of main
+        underground pipeline after accidental seismic impact</p>
+
+    <p class="authors">
+        <span class="span-authors">Э. Н. Фигаров<sup>a</sup>, С. Н. Масликов<sup>a</sup></span><br>
+        <span lang="en">Eldar N. Figarov<sup>a</sup>, Semen N. Maslikov<sup>a</sup></span>
+    </p>
+
+    <p class="affiliation">
+        <sup>a</sup> ООО «Научно-исследовательский институт трубопроводного транспорта»
+        (ООО «НИИ Транснефть»), Севастопольский проспект, 47а, 117186, Москва, Россия<br>
+        <span lang="en"><sup>a</sup> The Pipeline Transport Institute, LLC (Transneft R&amp;D, LLC),
+      47a Sevastopolsky Prospect, Moscow, 117186, Russian Federation</span>
+    </p>
+</header>
+
+<!-- ================= АННОТАЦИЯ ================= -->
+<div class="abstract" aria-label="Аннотация">
+    <h2>Аннотация</h2>
+    <p>В статье приведён вероятностный подход к оценке наступления предельного
+        напряжённо-деформированного состояния трубных секций подземных участков
+        трубопровода с целью ранжирования по степени подверженности сейсмическому
+        воздействию. В качестве критерия наступления предельного состояния принято
+        достижение предела текучести в растянутой зоне трубных секций. Данный критерий
+        выбран как наиболее опасный с точки зрения возможности разгерметизации
+        трубопровода и выхода продукта.
+        При оценке вероятности достижения предельного состояния учитывается разброс
+        геометрических параметров трубопровода, свойств металла, радиуса изгиба,
+        ускорения грунта, периода колебаний. Учитывается, что разброс параметров
+        трубопровода и радиусов изгиба имеют нормальный характер распределения,
+        в то время как сейсмическое ускорение и период колебаний имеют логнормальное
+        распределение. Приведён пример расчёта вероятности наступления предельного
+        состояния различных типоразмеров труб DN500, DN700, DN1200 для различной
+        интенсивности сейсмического воздействия.
+        Рассмотрен участок трубопровода протяжённостью 340 метров типоразмером
+        1067×12 мм и проведена оценка вероятности наступления предельного состояния
+        при заданном сейсмическом воздействии. Расчёты велись методом численного
+        интегрирования с проверкой методом Монте-Карло.
+        По результатам исследований в статье показана возможность ранжирования
+        участков трубопровода по степени сейсмического воздействия с целью назначения
+        приоритетных участков для проведения обследований после землетрясения.</p>
+</div>
+
+<div class="abstract" aria-label="Abstract">
+    <h3 lang="en">Abstract</h3>
+    <p lang="en">The article presents a probabilistic approach to assessing the onset of
+        the ultimate stress-strain state of underground pipeline sections for the purpose of
+        ranking them according to the degree of susceptibility to seismic impact...</p>
+</div>
+
+<!-- ================= КЛЮЧЕВЫЕ СЛОВА (на подложке) ================= -->
+<div class="abstract keywords article" aria-label="Ключевые слова">
+    <h2>Ключевые слова</h2>
+    <p><em>напряжённо-деформированное состояние, сейсмическое воздействие,
+        магистральный трубопровод, подземный магистральный трубопровод,
+        предельное состояние</em></p>
+
+    <h3 lang="en">Keywords</h3>
+    <p lang="en"><em>stress-strain state, seismic impact, main pipeline,
+        main underground pipeline, limit state</em></p>
+</div>
+
+<!-- ================= ДЛЯ ЦИТИРОВАНИЯ (на подложке) ================= -->
+<div class="abstract article" aria-label="Для цитирования">
+    <h2>Для цитирования</h2>
+    <p>Фигаров Э. Н., Масликов С. Н. Оценка напряжённо-деформированного состояния
+        подземного магистрального трубопровода при случайном сейсмическом воздействии
+        // Наука и технологии трубопроводного транспорта нефти и нефтепродуктов.
+        2026. Т. 16. № 4. С. 296–301.</p>
+
+    <h3 lang="en">For citation</h3>
+    <p lang="en">Figarov E. N., Maslikov S. N. Assessment of the stress-strain state of
+        main underground pipeline after accidental seismic impact. <em>Science &amp;
+            Technologies: Oil and Oil Products Pipeline Transportation</em>.
+        2026;16(4):296–301.</p>
+</div>
+
+<!-- ================= ВВЕДЕНИЕ ================= -->
+<div class="article">
+    <h2>Введение</h2>
+    <p>Подземные магистральные трубопроводы имеют обширную географию прокладки,
+        в том числе в сейсмически опасных зонах. Протяжённость магистральных
+        трубопроводов в зонах повышенной сейсмической активности составляет
+        порядка 5 тыс. км. Землетрясения являются одними из самых опасных стихийных
+        бедствий и могут приводить к деформациям и нарушениям целостности трубопровода.
+        При этом непосредственно после возникновения землетрясения требуется проведение
+        срочных рекогносцировочных обследований с целью обнаружения повреждений
+        трубопровода и/или возможного выхода нефти.
+        В случае значительной протяжённости трассы и ограниченности персонала
+        актуальным является вопрос ранжирования участков магистрального трубопровода
+        для назначения первоочередных обследований. При этом данное ранжирование
+        должно быть выполнено до наступления сейсмического события.
+        В нормативных документах на проектирование<sup><a href="#ref1" id="back1">1</a></sup>
+        регламентировано выполнение расчёта трубопровода на сейсмические воздействия
+        для наиболее неблагоприятного случая — распространения продольной сейсмической
+        волны вдоль трубопровода. Расчёт носит детерминистический характер и рассчитан
+        на определение значений напряжений для известных значений ускорений и скоростей
+        сейсмической волны, толщины стенки, типа грунтов и т. д.
+        Подход использования вероятностного характера колебаний грунтов использовался
+        для различных строительных объектов [6–8].
+        В исследованиях [9, 10] рассматривается подводный трубопровод со случайным сейсмическим нагружением, при этом
+        принималось допущение об отсутствии разброса параметров самого трубопровода.</p>
+</div>
+
+<!-- ================= РАСЧЁТНАЯ СХЕМА ================= -->
+<div class="article">
+    <h2>Расчётная схема</h2>
+    <p>С целью ранжирования участков по степени подверженности сейсмическому
+        воздействию рассмотрим распространение продольной сейсмической волны вдоль
+        подземного магистрального трубопровода. При этом толщина стенки, свойства
+        стали, радиус изгиба и сейсмическое воздействие являются случайными величинами.
+        В качестве предельного состояния примем достижение напряжений в растянутой зоне
+        трубной секции предела текучести. Уравнение, описывающее вероятность превышения
+        предела текучести, записывается в следующем виде:</p>
+
+    <p class="formula" role="math">
+        P&nbsp;( ψ<sub>1</sub>&nbsp;σ̄<sub>2</sub> − 0,15&nbsp;(pD&nbsp;/&nbsp;δ)
+        + αE&nbsp;Δt − (ED&nbsp;/&nbsp;2ρ) · (m<sub>0</sub>&nbsp;ᾱ<sub>c</sub>&nbsp;E&nbsp;T)
+        / (2π&nbsp;c<sub>p</sub>) ) &gt; 0,
+    </p>
+
+    <p>где ψ<sub>1</sub> — коэффициент, учитывающий двухосное напряжённое состояние
+        стенки трубопровода; δ — случайная величина толщины стенки; σ<sub>2</sub> —
+        случайная величина предела текучести; ρ — случайная величина радиуса изгиба;
+        α<sub>c</sub> — случайная величина сейсмического ускорения; p — давление;
+        D — наружный диаметр; E — модуль упругости; α — коэффициент линейного
+        расширения; Δt — температурный перепад; m<sub>0</sub> — коэффициент защемления
+        трубопровода в грунте; T — период сейсмических колебаний; c<sub>p</sub> —
+        скорость сейсмической волны.</p>
+
+    <p class="formula" role="math">
+        ψ<sub>1</sub> = √( 1 − 0,75&nbsp;(σ<sub>к</sub>&nbsp;/&nbsp;σ̄<sub>2</sub>)<sup>2</sup> )
+        − 0,5&nbsp;(σ<sub>к</sub>&nbsp;/&nbsp;σ̄<sub>2</sub>).
+    </p>
+
+    <p>Разброс параметров случайных величин σ<sub>2</sub>, δ, ρ подчиняется нормальному
+        закону распределения. Значение сейсмического ускорения α<sub>c</sub>, скорость
+        сейсмической волны и период колебаний подчиняются логнормальному
+        распределению [11].
+        Обозначим ψ<sub>1</sub>σ<sub>2</sub> − 0,15(pD)/δ + αEΔt − (ED)/(2ρ) = Y,
+        а значение −m<sub>0</sub>α<sub>c</sub>ET/2πc<sub>p</sub> = X, где Y подчиняется
+        нормальному, а X — логнормальному распределению.
+        Таким образом, задача сводится к нахождению вероятности P(Y − X &gt; 0)
+        или P(Y &gt; X). Обозначив X = exp(U) и зафиксировав U = u как константу,
+        получим условную вероятность:</p>
+
+    <p class="formula" role="math">
+        P( Y &gt; exp(u) | U = u ) = Φ ( (μ<sub>Y</sub> − exp(u)) / s<sub>Y</sub> ),
+    </p>
+
+    <p>где Φ — стандартная нормальная функция распределения. Усредняя по распределению U:</p>
+
+    <p class="formula" role="math">
+        $$ \f\relax{x} = \int_{-\infty}^\infty
+        \f\hat\xi\,e^{2 \pi i \xi x}
+        \,d\xi
+        $$
+    </p>
+
+    <p class="formula" role="math">
+        f<sub>U</sub>(u) = 1 / (s<sub>X</sub>√(2π)) ·
+        exp ( − ( (u − μ<sub>X</sub>)<sup>2</sup> / s<sub>X</sub><sup>2</sup> ) ),
+    </p>
+
+    <p>где s<sub>X</sub>, s<sub>Y</sub> — дисперсии распределения X и Y соответственно;
+        μ<sub>X</sub>, μ<sub>Y</sub> — математическое ожидание распределения X и Y
+        соответственно.</p>
+    <p>Полученный интеграл в дальнейшем будем вычислять численно с проверкой
+        корректности решения методом Монте-Карло.</p>
+</div>
+
+<!-- ================= РЕЗУЛЬТАТЫ РАСЧЁТОВ ================= -->
+<div class="article">
+    <h2>Результаты расчётов для различных типоразмеров труб</h2>
+    <p>Расчёты выполнены для различных типоразмеров труб и различных интенсивностей
+        сейсмических воздействий. В исследовании [11] обработано значительное количество
+        акселерограмм и сейсмограмм, по результатам обработки определены дисперсии
+        логнормальных распределений ускорений и периода колебаний
+        σ<sub>lg(a<sub>max</sub>)</sub> = 0,24, σ<sub>lg(T)</sub> = 0,17.
+        Проведены расчёты вероятности превышения напряжений предела текучести
+        в растянутой зоне изогнутых трубных секций для различных типоразмеров труб.
+        Радиус изгиба принят 1000 Dn, давление — 4 МПа. Результаты расчётов
+        приведены на рисунке.</p>
+
+    <figure>
+        <img src="img/background.jpg"
+             alt="Общий вид площадки трубопроводного транспорта нефти с резервуарным парком">
+        <figcaption>Рисунок. Зависимость вероятности превышения напряжений предела
+            текучести в растянутой зоне в зависимости от балльности землетрясения:
+            <strong>a</strong> — для трубопровода DN1200; <strong>b</strong> — для
+            трубопровода DN700; <strong>c</strong> — для трубопровода DN500.<br>
+            <span lang="en">Figure. Dependence of the probability of exceeding the yield
+        strength stresses in the tension zone on the earthquake intensity:
+        a — for DN1200 pipeline; b — for DN700 pipeline; c — for DN500 pipeline.</span>
+        </figcaption>
+    </figure>
+</div>
+
+<!-- ================= ПРАКТИЧЕСКОЕ ПРИМЕНЕНИЕ ================= -->
+<div class="article">
+    <h2>Практическое применение</h2>
+    <p>На реальных участках трубопроводов для каждой секции по результатам
+        внутритрубной диагностики определяются радиусы изгиба, фактические толщины
+        стенок. Давление для каждой секции определяется по эпюре давлений. Разброс
+        значений толщин стенок определяется по данным внутритрубной диагностики,
+        разброс определения радиуса изгиба — по данным паспортов на внутритрубный
+        прибор.
+        Для примера рассмотрим участок подземного трубопровода протяжённостью
+        около 340 м, типоразмером 1067×12, рабочее давление — 1,9 МПа, температурный
+        перепад — 46°, сейсмичность района по карте В ОСР-2015 составляет 7 баллов.
+        Радиусы изгиба определены по данным внутритрубной диагностики.
+        Результаты расчётов приведены в таблице. Из приведённых результатов расчёта
+        видно, что значения вероятности наступления предельного состояния,
+        рассчитанные различными методами, совпадают в пределах 5 %, что говорит
+        о корректности выполненных расчётов.</p>
+
+    <table>
+        <caption>
+            <span class="caption-label">Таблица.</span> Вероятность наступления предельного состояния<br>
+            <span lang="en"><span class="caption-label">Table.</span> Probability of occurrence of the limit state</span>
+        </caption>
+        <thead>
+        <tr>
+            <th rowspan="2">№ секции</th>
+            <th rowspan="2">Радиус изгиба, м</th>
+            <th rowspan="2">Тип грунта</th>
+            <th colspan="2">Вероятность наступления предельного состояния</th>
+        </tr>
+        <tr>
+            <th>Метод численного интегрирования</th>
+            <th>Метод Монте-Карло</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr><td>1</td><td>735</td><td>Песчаный</td><td>0,872</td><td>0,872</td></tr>
+        <tr><td>2</td><td>935</td><td>Песчаный</td><td>0,844</td><td>0,843</td></tr>
+        <tr><td>3</td><td>3846</td><td>Песчаный</td><td>0,758</td><td>0,757</td></tr>
+        <tr><td>4</td><td>1124</td><td>Песчаный</td><td>0,825</td><td>0,825</td></tr>
+        <tr><td>5</td><td>787</td><td>Песчаный</td><td>0,864</td><td>0,865</td></tr>
+        <tr><td>6</td><td>1020</td><td>Песчаный</td><td>0,834</td><td>0,832</td></tr>
+        <tr><td>7</td><td>1235</td><td>Песчаный</td><td>0,817</td><td>0,817</td></tr>
+        <tr><td>8</td><td>1515</td><td>Суглинок</td><td>0,431</td><td>0,431</td></tr>
+        <tr><td>9</td><td>1370</td><td>Суглинок</td><td>0,441</td><td>0,445</td></tr>
+        <tr><td>10</td><td>870</td><td>Суглинок</td><td>0,511</td><td>0,511</td></tr>
+        <tr><td>11</td><td>1333</td><td>Суглинок</td><td>0,445</td><td>0,443</td></tr>
+        <tr><td>12</td><td>877</td><td>Суглинок</td><td>0,509</td><td>0,509</td></tr>
+        <tr><td>13</td><td>1333</td><td>Суглинок</td><td>0,444</td><td>0,442</td></tr>
+        <tr><td>14</td><td>820</td><td>Суглинок</td><td>0,523</td><td>0,522</td></tr>
+        <tr><td>15</td><td>418</td><td>Суглинок</td><td>0,758</td><td>0,757</td></tr>
+        <tr><td>16</td><td>310</td><td>Суглинок</td><td>0,909</td><td>0,908</td></tr>
+        <tr><td>17</td><td>952</td><td>Суглинок</td><td>0,493</td><td>0,491</td></tr>
+        <tr><td>18</td><td>877</td><td>Суглинок</td><td>0,509</td><td>0,511</td></tr>
+        <tr><td>19</td><td>465</td><td>Суглинок</td><td>0,707</td><td>0,706</td></tr>
+        <tr><td>20</td><td>1042</td><td>Щебенистый грунт</td><td>0,025</td><td>0,025</td></tr>
+        <tr><td>21</td><td>2632</td><td>Щебенистый грунт</td><td>0,014</td><td>0,014</td></tr>
+        <tr><td>22</td><td>699</td><td>Щебенистый грунт</td><td>0,041</td><td>0,039</td></tr>
+        <tr><td>23</td><td>463</td><td>Щебенистый грунт</td><td>0,094</td><td>0,093</td></tr>
+        <tr><td>24</td><td>493</td><td>Щебенистый грунт</td><td>0,081</td><td>0,082</td></tr>
+        <tr><td>25</td><td>1235</td><td>Щебенистый грунт</td><td>0,021</td><td>0,021</td></tr>
+        <tr><td>26</td><td>7143</td><td>Щебенистый грунт</td><td>0,011</td><td>0,011</td></tr>
+        <tr><td>27</td><td>3846</td><td>Щебенистый грунт</td><td>0,013</td><td>0,013</td></tr>
+        <tr><td>28</td><td>735</td><td>Щебенистый грунт</td><td>0,038</td><td>0,037</td></tr>
+        <tr><td>29</td><td>1031</td><td>Щебенистый грунт</td><td>0,025</td><td>0,026</td></tr>
+        <tr><td>30</td><td>5000</td><td>Щебенистый грунт</td><td>0,012</td><td>0,012</td></tr>
+        </tbody>
+    </table>
+
+    <p>По результатам расчётов можно ранжировать трубные секции трубопровода
+        и выделить участки для первоочередных обследований после сейсмического
+        события.</p>
+</div>
+
+<!-- ================= ВЫВОДЫ ================= -->
+<div class="article">
+    <h2>Выводы</h2>
+    <ol>
+        <li>Для подземных трубопроводов, расположенных в сейсмически опасных зонах,
+            при возникновении землетрясения эксплуатирующая организация обязана
+            выполнить обследование трубопровода. С учётом большой протяжённости трассы
+            целесообразно разработать подход, позволяющий ранжировать участки
+            трубопровода для первоочередных обследований.</li>
+        <li>Учитывая разброс свойств стали, геометрических параметров самого
+            трубопровода, радиусов изгиба и сейсмического воздействия, в качестве
+            критерия для ранжирования предлагается использовать вероятность превышения
+            напряжений предела текучести в растянутой зоне трубной секции.</li>
+        <li>Проведены расчёты для различных типоразмеров труб, различных величин
+            сейсмического воздействия. Приведён пример расчёта вероятности наступления
+            предельного состояния для участка трубопровода 1067×12 протяжённостью 350 м.</li>
+    </ol>
+</div>
+
+<!-- ================= СНОСКИ ================= -->
+<div class="note article">
+    <h2>Сноски</h2>
+    <ol>
+        <li id="ref1">СП 36.13330.2012. Магистральные трубопроводы.
+            <a href="#back1" aria-label="Вернуться к тексту">↩</a></li>
+        <li>ANS/ANS-2.29-2020. IAEA Safety Standards Series No SSG-9.
+            Seismic hazards in site evaluation for nuclear installations.</li>
+        <li>СП 14.13330.2012. Строительство в сейсмических районах.</li>
+    </ol>
+</div>
+
+<!-- ================= СПИСОК ЛИТЕРАТУРЫ ================= -->
+<div class="article">
+    <h2>Список литературы</h2>
+    <ol class="refs">
+        <li>Cornell C. A. Engineering seismic risk analysis. <em>Bulletin of the
+            Seismological Society of America</em>. Vol. 58, No. 5. P. 1583–1606.</li>
+        <li>Boore D. M., Stewart J. P., Abrahamson N. A. Ground-motion model for the
+            average horizontal component of PGA, PGV and 5 % damped linear elastic
+            response spectra for period ranging from 0.01 to 10 s. 2022.</li>
+        <li>Алгоритмы вероятностного анализа сейсмической опасности /
+            В. А. Миронов [и др.] // Актуальные проблемы вычислительной и прикладной
+            математики : материалы Международной конференции. Новосибирск, 2019.
+            С. 334–338.</li>
+        <li>Зайнулабидова Х. Р. Вероятностные модели сейсмических воздействий //
+            Вестник Дагестанского государственного технического университета.
+            Технические науки. 2009. № 15. С. 92–97.</li>
+        <li>Математическое моделирование сейсмических рисков / В. А. Минаев [и др.] //
+            Спецтехника и связь. 2013. № 5. С. 58–63.</li>
+        <li>Панасенко Н. Н., Синельщикова Л. С., Синельщиков А. В. Спектральный анализ
+            Фурье вероятностно-статистических акселерограмм // Вестник Алматинского
+            государственного технического университета. 2012. № 2. С. 22–31.</li>
+        <li>Чемодуров В. Т., Литвинова Э. В. Модель движения грунта в процессе
+            сейсмической активности // Строительство и техногенная безопасность.
+            2025. № 37. С. 85–90.</li>
+        <li>Полосков И. Е. Стохастический анализ колебаний высотных зданий при случайных
+            возмущениях фундамента // Вестник Пермского университета. Математика.
+            Информатика. Механика. 2017. Вып. 3. С. 61–71.</li>
+        <li>Муравьева Л. В., Овчинников И. Г. Определение повреждаемости морского
+            заглубленного трубопровода методом спектрального суммирования напряжений
+            при колебаниях от технологической и случайной сейсмической нагрузок //
+            Транспортные сооружения : интернет-журнал. 2017. Т. 4. № 2.
+            <a href="http://t-s.today/PDF/03TS217.pdf">http://t-s.today/PDF/03TS217.pdf</a>
+            (дата обращения: 07.05.2026).</li>
+        <li>Муравьева Л. В., Овчинников И. Г. Анализ сейсмостойкости подводного
+            заглубленного трубопровода // Транспортные сооружения : интернет-журнал.
+            2018. Т. 5. № 1.
+            <a href="https://t-s.today/PDF/16SATS118.pdf">https://t-s.today/PDF/16SATS118.pdf</a>
+            (дата обращения: 07.05.2026).</li>
+        <li>Чернов Ю. К. Сильные движения грунта и количественная оценка сейсмической
+            опасности территорий. Ташкент : Фан, 1989. 206 с.</li>
+    </ol>
+
+    <h3 lang="en">References</h3>
+    <ol class="refs" lang="en">
+        <li>Kornell K. A. Engineering seismic risk analysis. <em>Bulletin of the
+            Seismological Society of America</em>. 1968;58(5):1583–1606.</li>
+        <li>Boore D. M., Stewart J. P., Abrahamson N. A. Ground-motion model for the
+            average horizontal component of PGA, PGV and 5 % damped linear elastic
+            response spectra for period ranging from 0.01 to 10 s. 2022.</li>
+        <li>Mironov V. A., Peretokin S. A., Simonov K. V., Kurako M. A. Algorithms for
+            probabilistic seismic hazard analysis. <em>Actual Problems of Computational
+                and Applied Mathematics</em> : Proceeding of the International Conference.
+            Novosibirsk, 2019. P. 334–338. (In Russ.)</li>
+        <li>Zaynalubidova Kh. R. Probabilistic models of seismic effects. <em>Bulletin of
+            the Dagestan State Technical University. Technical Sciences</em>.
+            2009(15):92–97. (In Russ.)</li>
+    </ol>
+
+    <p class="refs-dates">
+        Дата поступления рукописи в редакцию — 12 июня 2026 г.,<br>
+        одобрена после рецензирования — 10 июля 2026 г.,<br>
+        в окончательной форме — 07 августа 2026 г.
+    </p>
+</div>
+
+<!-- ================= СВЕДЕНИЯ ОБ АВТОРАХ ================= -->
+<footer>
+    <h2>Сведения об авторах</h2>
+
+    <div class="author-card">
+        <img src="img/figarov.jpg" alt="Фотография Э. Н. Фигарова">
+        <div class="author-info">
+            <p class="author-name"><strong>Э. Н. Фигаров</strong></p>
+            <p class="author-details">
+                — к. т. н., заместитель заведующего лабораторией прочностных расчётов
+                ООО «НИИ Транснефть», Москва, Россия.<br>
+                <span lang="en">Eldar N. Figarov, Cand. Sci. (Eng.), Deputy Head of the
+          Laboratory for Strength Calculation, Transneft R&amp;D, Moscow,
+          Russian Federation.</span><br>
+                E-mail: <a href="mailto:FigarovEN@transneft.ru">FigarovEN@transneft.ru</a>
+            </p>
+        </div>
+    </div>
+
+    <div class="author-card">
+        <img src="img/maslikov.jpg" alt="Фотография С. Н. Масликова">
+        <div class="author-info">
+            <p class="author-name"><strong>С. Н. Масликов</strong></p>
+            <p class="author-details">
+                — начальник отдела оценки технического состояния и прочностных расчётов
+                ООО «НИИ Транснефть», Москва, Россия.<br>
+                <span lang="en">Semen N. Maslikov, Head of Department of Technical Condition
+          Assessment and Strength Calculations, Transneft R&amp;D, LLC, Moscow,
+          Russian Federation.</span><br>
+                E-mail: <a href="mailto:MaslikovSN@transneft.ru">MaslikovSN@transneft.ru</a>
+            </p>
+        </div>
+    </div>
+
+    <p class="corresponding">
+        Автор для связи: Э. Н. Фигаров,
+        e-mail: <a href="mailto:FigarovEN@transneft.ru">FigarovEN@transneft.ru</a>.<br>
+        <span lang="en">Corresponding author: Eldar N. Figarov,
+      e-mail: FigarovEN@transneft.ru.</span>
+    </p>
+</footer>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false}
+            ],
+            macros: {
+                "\\f": "#1f(#2)"
+            }
+        });
+    });
+</script>
+</body>
+</html>
