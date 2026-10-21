@@ -15,14 +15,14 @@
       background-color: #5d9dce;
     }
 
-    /* Убрали !important, используем форму .orange-input.form-control для приоритета */
+    /* Форма .orange-input.form-control для приоритета, еще можно использовать !important */
     .orange-input.form-control {
       background-color: #f57e20;
       border: 1px solid #d66813;
       color: white;
       text-align: center;
       padding: 12px;
-      resize: none; /* Запрет растягивания */
+      resize: none;
     }
 
     .orange-input.form-control::placeholder {
@@ -38,8 +38,9 @@
       width: 100%;
       padding: 12px;
     }
+    /* Стиль наведения курсора мыши */
     .btn-orange:hover {
-      background-color: #e06b15;
+      background-color: #e06b15; /* Цвет становится чуть темнее */
       color: white;
     }
   </style>
@@ -67,6 +68,7 @@
 
     <!-- Правая колонка (Форма) -->
     <div class="col-md-8">
+      <!-- Отправка на эту же страницу» (перезагрузка).Заглушка. Post- метод отправки данных -->
       <form action="#" method="POST">
         <div class="mb-3">
           <label for="nameInput" class="visually-hidden">Имя</label>
