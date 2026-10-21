@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Блок контакты</title>
+  <style>
+    /* Общие стили */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f4f4f4; /* Светло-серый фон для страницы, чтобы выделить блок */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* Главный контейнер */
+    .contact-container {
+      background-color: #5d9dce; /* Синий фон */
+      display: flex;
+      flex-wrap: wrap; /* Для адаптивности на мобильных */
+      padding: 30px;
+      max-width: 900px;
+      width: 100%;
+      box-sizing: border-box;
+      gap: 40px; /* Расстояние между колонками */
+    }
+
+    /* Левая колонка с текстом */
+    .contact-info {
+      flex: 1;
+      min-width: 250px;
+      color: #000; /* Черный текст */
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .contact-info h3 {
+      margin-top: 0;
+      margin-bottom: 25px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .contact-info p {
+      margin: 0 0 20px 0;
+    }
+
+    /* Правая колонка с формой */
+    .contact-form {
+      flex: 1.2;
+      min-width: 300px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px; /* Расстояние между полями */
+    }
+
+    /* Стили для полей ввода */
+    .form-input, .form-textarea {
+      width: 100%;
+      background-color: #f57e20; /* Оранжевый фон */
+      border: 1px solid #d66813; /* Чуть более темная рамка */
+      color: #fff;
+      padding: 15px;
+      font-size: 16px;
+      box-sizing: border-box;
+      text-align: center; /* Текст по центру */
+      outline: none;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Цвет плейсхолдера (текста-подсказки) */
+    .form-input::placeholder, .form-textarea::placeholder {
+      color: #fff;
+      opacity: 0.9;
+    }
+
+    /* Специфичные стили для textarea */
+    .form-textarea {
+      height: 120px;
+      resize: none; /* Запретить изменение размера */
+      padding-top: 20px; /* Чуть больше отступа сверху для визуального баланса */
+    }
+
+    /* Стили для кнопки */
+    .form-button {
+      width: 100%;
+      background-color: #f57e20;
+      border: 1px solid #d66813;
+      color: #fff;
+      padding: 15px;
+      font-size: 16px;
+      cursor: pointer;
+      text-align: center;
+      font-family: Arial, sans-serif;
+      transition: background-color 0.3s ease;
+    }
+
+    /* Эффект при наведении на кнопку */
+    .form-button:hover {
+      background-color: #e06b15;
+    }
+
+    /* Медиа-запрос для мобильных устройств */
+    @media (max-width: 650px) {
+      .contact-container {
+        flex-direction: column;
+        gap: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="contact-container">
+  <!-- Левая часть -->
+  <div class="contact-info">
+    <h3>Блок контакты</h3>
+    <p>Адрес:<br>Г. Москва ул. Ленина д.5</p>
+    <p>Телефон:<br>+79999999999</p>
+    <p>Email: example@e.com</p>
+  </div>
+
+  <!-- Правая часть (Форма) -->
+  <form class="contact-form" action="#" method="POST">
+    <input type="text" name="name" class="form-input" placeholder="Имя" required>
+    <input type="tel" name="phone" class="form-input" placeholder="Номер телефона" required>
+    <textarea name="message" class="form-textarea" placeholder="Текст" required></textarea>
+    <button type="submit" class="form-button">Кнопка</button>
+  </form>
+</div>
+
+</body>
+</html>

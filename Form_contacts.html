@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Контакты</title>
+  <!-- Подключение Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Подключение Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+  <style>
+    /* Максимальная ширина всей формы и центрирование */
+    .form-wrapper {
+      max-width: 900px;
+      margin: 40px auto;
+    }
+
+    /* Фон контейнера */
+    .bg-custom-blue { /* задает синий фон */
+      background-color: #5d9dce;
+      padding: 40px;
+    }
+
+    /* Кастомный стиль для оранжевых полей */
+    .orange-input {
+      background-color: #f57e20 !important;
+      border: 1px solid #d66813 !important;
+      color: white !important;
+      text-align: center;
+      padding: 12px;
+      box-sizing: border-box; /* Чтобы padding не увеличивал ширину поля */
+    }
+
+    /* Цвет плейсхолдера */
+    .orange-input::placeholder {
+      color: #fff;
+      opacity: 0.9;
+    }
+
+    /* Убираем возможность растягивать текстовое поле */
+    textarea.orange-input {
+      resize: none;
+      height: 120px; /* Фиксируем высоту */
+    }
+
+    /* Стиль кнопки */
+    .btn-orange {
+      background-color: #f57e20;
+      border: 1px solid #d66813;
+      color: white;
+      width: 100%;
+      padding: 12px;
+    }
+    .btn-orange:hover {
+      background-color: #e06b15;
+      color: white;
+    }
+
+    /* Чтобы текст в левой колонке не вылезал за края */
+    .contact-info-text {
+      word-wrap: break-word;
+    }
+  </style>
+</head>
+<body>
+
+<div class="form-wrapper container">
+  <div class="bg-custom-blue">
+    <div class="row">
+      <!-- Левая колонка -->
+      <div class="col-md-4 text-dark contact-info-text">
+        <div class="mb-4">
+          <h5 class="fw-bold mb-4">Блок контакты</h5>
+
+          <p class="mb-1">Адрес:</p>
+          <p class="mb-4">г. Москва, Севастопольский пр., д. 47А</p>
+
+          <p class="mb-1">Телефон:</p>
+          <p class="mb-4">+79999999999</p>
+
+          <p class="mb-1">Email:</p>
+          <p>example@e.com</p>
+        </div>
+      </div>
+
+      <!-- Правая колонка (Форма) -->
+      <div class="col-md-8">
+        <form action="#" method="POST">
+          <div class="mb-3">
+            <input type="text" name="name" class="form-control orange-input" placeholder="Имя" required>
+          </div>
+          <div class="mb-3">
+            <input type="tel" name="phone" class="form-control orange-input" placeholder="Номер телефона" required>
+          </div>
+          <div class="mb-3">
+            <textarea name="message" class="form-control orange-input" placeholder="Текст" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-orange">Кнопка</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
